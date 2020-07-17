@@ -328,6 +328,23 @@ input, textarea {
     font-size: .9rem;
 }
 
+button{
+	margin: 1rem auto;
+	padding: 0.4rem;
+	background-color: #3fabc9;
+	border-radius: 0.8em;
+	border: none;
+	cursor: pointer;
+	line-height: 1rem;
+	text-transform: uppercase;
+	font-weight:bold;
+	
+}
+
+button:focus{
+	border: 2px solid #000;
+}
+
 /*confirmationdecommande*/
 
 .heigtauto{
