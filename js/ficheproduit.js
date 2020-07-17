@@ -4,7 +4,7 @@
 const produitSell = "cameras"  //Au choix entre : "cameras" - "furniture" - "teddies"
 const APIURL = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
 
-//id du produit pour permettre un tri dans l'API
+//id des différents produits dans l'API
 
 let idProduit = "";
 
@@ -35,7 +35,7 @@ getProduits = () =>{
 	});
 };
 
-/*Build de la page du produit sélectionné
+/*Page HTML de la fiche produit sélectionnée
 **********************************************/
 
 async function detailProduit(){
@@ -43,7 +43,7 @@ async function detailProduit(){
     idProduit = location.search.substring(4);
     const produitSelected = await getProduits();
     
-    //Remplissage de la fiche produit
+    //élément de l'API a insérer dans le document HTML
     document.getElementById("imageduproduit").setAttribute("src", produitSelected.imageUrl);
     document.getElementById("nomduproduit").innerHTML = produitSelected.name;
     document.getElementById("descriptionduproduit").innerHTML = produitSelected.description;

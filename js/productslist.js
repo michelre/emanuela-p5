@@ -37,25 +37,24 @@ getProduits = () =>{
 };
 
 
-/*Création du HTML après appel de l'API
+/*Création de la page HTMLLde la liste des produits après appel de l'API
 **********************************************/
 
-	//Build la liste des produits en vente sur la page index
+	//Fonction pour récupérer les produits en vente sur la page index
 	async function allProductsList(){
 		const produits = await getProduits();
 
 		//Création de la section accueillant la liste des produits
 		let listProduct = document.createElement("section")
 		listProduct.setAttribute("class", "listedesproduits");
-		//Ajout de la section dans le HTML
+		//Ajout de la section au conteneur principal HTML
 		let main = document.getElementById("main");
 		main.appendChild(listProduct);
 
-		//Pour chaque produit de l'API on créé l'encadré HTML du produit
+		//On appel chaque produit
 		produits.forEach((produit) =>
 		{ 
-      	//création des élements de la structure de la liste des produits en vente
-      	//Une div conteneur/2 div(block gauche et droit)/une image/le nom(titre)/le prix(p)/le lien(a)
+      	//On crée les élements de la structure de l'index
       	let produitBlock = document.createElement("div");
       	let produitBlockImage = document.createElement("div");
       	let produitTexte = document.createElement("div");
@@ -64,7 +63,7 @@ getProduits = () =>{
       	let produitPrix = document.createElement("p");
       	let produitLien = document.createElement("a");
 
-      	//Ajout des attributs au balise pour la création du style via le css
+      	//On ajoute des attributs au balise pour la création du style via le css
       	produitBlock.setAttribute("class", "ficheproduit-contenant__index");
       	produitBlockImage.setAttribute("class", "conteneur-image");
       	produitTexte.setAttribute("class", "ficheproduit-contenu__index bgc");
@@ -74,9 +73,7 @@ getProduits = () =>{
 		produitLien.setAttribute("href", "fiche-produit.html?id=" + produit._id);
 		produitLien.setAttribute("class", "btn bgc__secondaire focus  majuscule");  
 
-     	//Block conteneur en flex
-      	//Block gauche comprend l'image du produit
-     	//Bloc droit comprend le nom/prix/le lien du produit
+     	//On rattache les différents éléments à leur parent
      	listProduct.appendChild(produitBlock);
      	produitTexte.appendChild(produitBlockImage);
      	produitBlockImage.appendChild(produitImage);
@@ -85,7 +82,7 @@ getProduits = () =>{
      	produitTexte.appendChild(produitPrix);
      	produitTexte.appendChild(produitLien);
 
-      	//Déterminer le contenu des balises
+      	//On insere les éléments provenant de l'API, nécéssaire à la lecture de la page
       	produitNom.textContent = produit.name;
       	produitPrix.textContent = produit.price / 100 + " euros";
       	produitLien.textContent = "Fiche du produit";
