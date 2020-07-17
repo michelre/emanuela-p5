@@ -2,7 +2,7 @@
 **********************************************/
 
 const produitSell = "cameras"  //Au choix entre : "cameras" - "furniture" - "teddies"
-const APIURL = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
+const apiUrl = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
 
 //id des différents produits dans l'API
 
@@ -18,7 +18,7 @@ getProduits = () =>{
 			if(this.readyState == XMLHttpRequest.DONE && this.status == 200) 
 			{
 				resolve(JSON.parse(this.responseText));
-				console.log("Administration : connection ok");
+				console.log("Vous êtes connecté à l'API");
 
 				//L'appel est réussi => suppression des message d'erreur
 				error = document.getElementById("erreur");
@@ -27,10 +27,10 @@ getProduits = () =>{
 					error.remove();
 				}
 			}else{
-				console.log("Administration : ERROR connection API");
+				console.log("Erreur de connexion à l'API");
 			}
 		}
-		request.open("GET", APIURL + idProduit);
+		request.open("GET", apiUrl + idProduit);
 		request.send();
 	});
 };
