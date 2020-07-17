@@ -32,20 +32,29 @@
 					<fieldset>
 						<legend>Votre Adresse :</legend>
 						<div class="souspartie">
-							<label for="nomclient">Nom *</label>
-							<input type="text" placeholder="Votre nom" id="nomclient"  size="23"  pattern="^\D*$" required name="nomclient">
+							<div>
+								<label for="nomclient">Nom *</label>
+								<input type="text" placeholder="Votre nom" id="nomclient"  size="23"  pattern="^\D*$" required name="nomclient">
 
-							<label for="prenomclient">Prénom *</label>
-							<input type="text" placeholder="Votre prénom" id="prenomclient"  size="16" pattern="^\D*$" required name="prenomclient"></div>
+								<label for="prenomclient">Prénom *</label>
+								<input type="text" placeholder="Votre prénom" id="prenomclient"  size="16" pattern="^\D*$" required name="prenomclient">
+							</div>
+						</div>
 						<div class="souspartie">
-							<label for="emailclient">Email *</label>
-							<input type="email" placeholder="Votre email" id="emailclient" size="56" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required name="emailclient"></div>
+							<div>
+								<label for="emailclient">Email *</label>
+								<input type="email" placeholder="Votre email" id="emailclient" size="56" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required name="emailclient">
+							</div>
+						</div>
 						<div class="souspartie">
-							<label for="adresseclient">Adresse *</label>
-							<input type="text" placeholder="Votre adresse postale" id="adresseclient" class="address" size="56" required name="adresseclient"><br/>
+							<div>
+								<label for="adresseclient">Adresse *</label>
+								<input type="text" placeholder="Votre adresse postale" id="adresseclient" class="address" size="56" required name="adresseclient"><br/>
 					
-							<label for="villeclient">Ville *</label>
-							<input type="text" placeholder="Votre ville" id="villeclient"  size="23" required name="villeclient"></div>
+								<label for="villeclient">Ville *</label>
+								<input type="text" placeholder="Votre ville" id="villeclient"  size="23" required name="villeclient">
+							</div>
+						</div>
 					</fieldset>  
 						<button type="submit" id="envoiformulaire">Valider la commande</button>
 						<button type="reset">Effacer</button>
