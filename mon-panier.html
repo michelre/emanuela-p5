@@ -28,26 +28,27 @@
 				<a class="btn btn__achat bgc majuscule focus"id="retournersurlacceuil"href="index.html"><i class="fas fa-caret-left"></i>retourner sur l'acceuil</a>
 		</div>
 		<section class="conteneur__demie">
-				<form method="post" name="formulairedecommande">
+				<form action="" method="post" name="formulairedecommande">
 					<fieldset>
 						<legend>Votre Adresse :</legend>
 						<div class="souspartie">
 							<label for="nomclient">Nom *</label>
-							<input type="text" placeholder="Votre nom" id="nomclient" class=" " size="23"  pattern="^\D*$" required name="nomclient">
+							<input type="text" placeholder="Votre nom" id="nomclient"  size="23"  pattern="^\D*$" required name="nomclient">
 
 							<label for="prenomclient">Prénom *</label>
-							<input type="text" placeholder="Votre prénom" id="prenomclient" class=" " size="16" pattern="^\D*$" required name="prenomclient"></div>
+							<input type="text" placeholder="Votre prénom" id="prenomclient"  size="16" pattern="^\D*$" required name="prenomclient"></div>
 						<div class="souspartie">
 							<label for="emailclient">Email *</label>
-							<input type="email" placeholder="Votre email" id="emailclient" class=" " size="56" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required name="emailclient"></div>
+							<input type="email" placeholder="Votre email" id="emailclient" size="56" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required name="emailclient"></div>
 						<div class="souspartie">
 							<label for="adresseclient">Adresse *</label>
 							<input type="text" placeholder="Votre adresse postale" id="adresseclient" class="address" size="56" required name="adresseclient"><br/>
 					
 							<label for="villeclient">Ville *</label>
-							<input type="text" placeholder="Votre ville" id="villeclient" class=" " size="23" required name="villeclient"></div>
+							<input type="text" placeholder="Votre ville" id="villeclient"  size="23" required name="villeclient"></div>
 					</fieldset>  
-					<input type="button" value="Valider la commande" class="btn bgc majuscule focus" id="envoiformulaire">
+						<button type="submit" id="envoiformulaire">Valider la commande</button>
+						<button type="reset">Effacer</button>
 				</form>
 			</section>
 	</main>
@@ -62,6 +63,9 @@
 				<a href="index.html" title="Lien vers Instagram"><i class="fa fa-instagram icon-social"></i></a>
 			</div>
 		</footer> 
-	<script src="js/panier.js"></script>
+	<script src="js/pannier.js"></script>
+	<script>
+		validForm()
+	</script>
 </body>
 </html>
