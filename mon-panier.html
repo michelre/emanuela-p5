@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<link rel="shortcut icon" type="image/png" href="img/oriphoto-favicon.png">
+	<title>OriPhoto</title>
+	<meta name="description" content="OriPhoto est une filiale de ORINOCO, site de vente en ligne, qui vend des appareils photo vintages">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://kit.fontawesome.com/9376b337f5.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins&display=swap" rel="stylesheet">
+
+</head>
+<body>
+		<header class="bgc">
+			<h1>
+				<img class="logo" src="img/oriphoto-logo.png" alt="Logo d'Oriphoto"/>riPhoto
+			</h1>
+			<nav class="flexbox">
+				<a href="index.html" class="focus">Accueil<i class="fas fa-caret-right"></i></a>
+				<a href="mon-panier.html" class="focus">Panier<i class="fas fa-shopping-cart"></i></a>
+			</nav>
+		</header>
+	<main>
+			<h2 class="principal bgc">mon panier</h2>
+			<div id="resumepanier">
+				<p id="paniervide">Votre panier est actuellement vide</p>
+				<a class="btn btn__achat bgc majuscule focus"id="retournersurlacceuil"href="index.html"><i class="fas fa-caret-left"></i>retourner sur l'acceuil</a>
+		</div>
+		<section class="conteneur__demie">
+				<form method="post" name="formulairedecommande">
+					<fieldset>
+						<legend>Votre Adresse :</legend>
+						<div class="souspartie">
+							<label for="nom">Nom : </label>
+							<input type="text" id="nom" class=" " size="23"  required name="nom">
+
+							<label for="prenom">Prénom :</label>
+							<input type="text" id="prenom" class=" " size="16" required name="prenom"></div>
+						<div class="souspartie">
+							<label for="mail">E-mail :</label>
+							<input type="email" id="mail" class=" " size="56" required name="mail"></div>
+						<div class="souspartie">
+							<label for="address">Adresse :</label>
+							<input type="text" id="address" class="address" size="56" required name="address"><br/>
+					
+							<label for="ville">Ville :</label>
+							<input type="text" id="ville" class=" " size="23" required name="ville"></div>
+					</fieldset>  
+					<input type="button" value="Valider la commande" class="btn bgc majuscule focus" id="envoiformulaire">
+				</form>
+			</section>
+	</main>
+	<footer  class="bgc flexbox">
+			<div>
+				<a href="index.html" title="Lien vers Twitter"><i class="fa fa-twitter icon-social"></i></a>
+			</div>
+			<div>
+				<a href="index.html" title="Lien vers Facebook"><i class="fa fa-facebook icon-social"></i></a>
+			</div>
+			<div>
+				<a href="index.html" title="Lien vers Instagram"><i class="fa fa-instagram icon-social"></i></a>
+			</div>
+		</footer> 
+	<script src="js/products.js"></script>
+	<script>
+		addition();
+		validForm()
+	</script>
+</body>
+</html>
