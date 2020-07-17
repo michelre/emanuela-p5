@@ -11,7 +11,7 @@ let idProduit = "";
 /*Appel de l'API
 **********************************************/
 
-getProduits = () =>{
+get = () =>{
 	return new Promise((resolve) =>{
 		let request = new XMLHttpRequest();
 		request.onreadystatechange = function() {
@@ -41,7 +41,7 @@ getProduits = () =>{
 async function detailProduit(){
     //Collecter l'URL après le ?id= pour le récupérer uniquement sur l'API
     idProduit = location.search.substring(4);
-    const produitSelected = await getProduits();
+    const produitSelected = await get();
     
     //élément de l'API a insérer dans le document HTML
     document.getElementById("imageduproduit").setAttribute("src", produitSelected.imageUrl);
