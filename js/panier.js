@@ -18,13 +18,13 @@ const checkValidity = (input) => {
     input.addEventListener('invalid', (e) => {
         e.preventDefault()
         if (!e.target.validity.valid) {
-            e.target.parentElement.classList.add('erreur__form')
+            e.target.parentElement.classList.add('erreur__formulaire')
         }
     })
 
     input.addEventListener('input', (e) => {
         if (e.target.validity.valid) {
-            e.target.parentElement.classList.remove('erreur__form')
+            e.target.parentElement.classList.remove('erreur__formulaire')
         }
     })
 }
