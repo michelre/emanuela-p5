@@ -32,20 +32,20 @@
 					<fieldset>
 						<legend>Votre Adresse :</legend>
 						<div class="souspartie">
-							<label for="nom">Nom : </label>
-							<input type="text" id="nom" class=" " size="23"  required name="nom">
+							<label for="nomclient">Nom *</label>
+							<input type="text" placeholder="Votre nom" id="nomclient" class=" " size="23"  pattern="^\D*$" required name="nomclient">
 
-							<label for="prenom">Prénom :</label>
-							<input type="text" id="prenom" class=" " size="16" required name="prenom"></div>
+							<label for="prenomclient">Prénom *</label>
+							<input type="text" placeholder="Votre prénom" id="prenomclient" class=" " size="16" pattern="^\D*$" required name="prenomclient"></div>
 						<div class="souspartie">
-							<label for="mail">E-mail :</label>
-							<input type="email" id="mail" class=" " size="56" required name="mail"></div>
+							<label for="emailclient">Email *</label>
+							<input type="email" placeholder="Votre email" id="emailclient" class=" " size="56" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required name="emailclient"></div>
 						<div class="souspartie">
-							<label for="address">Adresse :</label>
-							<input type="text" id="address" class="address" size="56" required name="address"><br/>
+							<label for="adresseclient">Adresse *</label>
+							<input type="text" placeholder="Votre adresse postale" id="adresseclient" class="address" size="56" required name="adresseclient"><br/>
 					
-							<label for="ville">Ville :</label>
-							<input type="text" id="ville" class=" " size="23" required name="ville"></div>
+							<label for="villeclient">Ville *</label>
+							<input type="text" placeholder="Votre vite" id="villeclient" class=" " size="23" required name="villeclient"></div>
 					</fieldset>  
 					<input type="button" value="Valider la commande" class="btn bgc majuscule focus" id="envoiformulaire">
 				</form>
@@ -62,7 +62,7 @@
 				<a href="index.html" title="Lien vers Instagram"><i class="fa fa-instagram icon-social"></i></a>
 			</div>
 		</footer> 
-	<script src="js/products.js"></script>
+	<script src="js/pannier.js"></script>
 	<script>
 		addition();
 		validForm()
