@@ -9,7 +9,32 @@ const apiUrl = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
 let idProduit = "";
 
 
+/*Appel de l'API
+**********************************************/
 
+get = () =>{
+	return new Promise((resolve) =>{
+		let request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			if(this.readyState == XMLHttpRequest.DONE && this.status == 200) 
+			{
+				resolve(JSON.parse(this.responseText));
+				console.log("Vous êtes connecté à l'API");
+
+				//L'appel est réussi => suppression des message d'erreur
+				error = document.getElementById("erreur");
+				//On supprime le message d'erreur s'il existe
+				if(error){
+					error.remove();
+				}
+			}else{
+				console.log("Erreur de connexion à l'API");
+			}
+		}
+		request.open("GET", apiUrl + idProduit);
+		request.send();
+	});
+};
 
 
 /*Création de la page HTMLLde la liste des produits après appel de l'API
