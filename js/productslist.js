@@ -12,7 +12,7 @@ let idProduit = "";
 /*Appel de l'API
 **********************************************/
 
-get = () =>{
+getProduits = () =>{
 	return new Promise((resolve) =>{
 		let request = new XMLHttpRequest();
 		request.onreadystatechange = function() {
@@ -42,7 +42,7 @@ get = () =>{
 
 	//Fonction pour récupérer les produits en vente sur la page index
 	async function allProductsList(){
-		const produits = await get();
+		const produits = await getProduits();
 
 		//Création de la section accueillant la liste des produits
 		let listProduct = document.createElement("section")
@@ -89,11 +89,5 @@ get = () =>{
       });
 	};
 
-	function onLoadcartNumbers() {
-		let productNumbers = localStorage.getItem('cartNumbers');
-	
-		if(productNumbers){
-			document.getElementById('nombredeproduit').textContent = productNumbers;
-		}
-	}
+
 
