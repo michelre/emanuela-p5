@@ -19,6 +19,10 @@ body{
 	background-color: #CDCD37;
 } 
 
+div{
+	margin:0;
+}
+
  a, a:hover, a:visited, a:link{	
 		color:#FFFFFF;
 		text-decoration: none !important;
