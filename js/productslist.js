@@ -9,40 +9,8 @@ const apiUrl = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
 let idProduit = "";
 
 
-/*Appel de l'API
-**********************************************/
 
-getProduits = () =>{
-	return new Promise((resolve) =>{
-		let request = new XMLHttpRequest();
-		request.onreadystatechange = function() {
-			if(this.readyState == XMLHttpRequest.DONE && this.status == 200) 
-			{
-				resolve(JSON.parse(this.responseText));
-				console.log("Vous êtes connecté à l'API");
-
-				//L'appel est réussi => suppression des message d'erreur
-				error = document.getElementById("erreur");
-				//On supprime le message d'erreur s'il existe
-				if(error){
-					error.remove();
-				}
-			}else{
-				console.log("Erreur de connexion à l'API");
-			}
-		}
-		request.open("GET", apiUrl + idProduit);
-		request.send();
-	});
-};
-
-
-/*Création de la page HTMLLde la liste des produits après appel de l'API
-**********************************************/
-
-	//Fonction pour récupérer les produits en vente sur la page index
-	async function allProductsList(){
-		const produits = await getProduits();
+get (apiUrl).then((response)=>{
 
 		//Création de la section accueillant la liste des produits
 		let listProduct = document.createElement("section")
@@ -52,7 +20,7 @@ getProduits = () =>{
 		main.appendChild(listProduct);
 
 		//On appel chaque produit
-		produits.forEach((produit) =>
+		response.forEach((produit) =>
 		{ 
       	//On crée les élements de la structure de l'index
       	let produitBlock = document.createElement("div");
@@ -87,7 +55,6 @@ getProduits = () =>{
       	produitPrix.textContent = produit.price / 100 + " euros";
       	produitLien.textContent = "Fiche du produit";
       });
-	};
-
+	});
 
 
