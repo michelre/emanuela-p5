@@ -166,11 +166,6 @@ main {
 	overflow:hidden;
 }
 
-.conteneur-image > a{
-	display:block;
-	margin:1rem;
-}
-
 .article-image{
 	
 		width:100%;
@@ -215,6 +210,11 @@ main {
 		height:100%;
 		flex-direction:column;
 		justify-content:center;
+}
+
+.ficheproduit-contenu__index > a{
+	display:block;
+	margin:1rem;
 }
 
 .ficheproduit-contenant__gauche {
