@@ -166,6 +166,10 @@ main {
 	overflow:hidden;
 }
 
+.conteneur-image>a{
+	margin:1rem;
+}
+
 .article-image{
 	
 		width:100%;
@@ -373,7 +377,7 @@ footer {
 /*bouton*/
 
 .btn {
-	margin: 1rem;
+	margin: 1rem 0;
 	border-radius: 0.8em;
 	border: none;
 	cursor: pointer;
