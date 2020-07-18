@@ -213,7 +213,7 @@ main {
 }
 
 .ficheproduit-contenu__index > a{
-	margin:0 1rem;
+	margin:0 0 1rem 0;
 }
 
 .ficheproduit-contenant__gauche {
