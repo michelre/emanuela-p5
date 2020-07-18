@@ -214,7 +214,7 @@ main {
 
 .ficheproduit-contenu__index > a{
 	display:block;
-	margin:1rem;
+	margin:0 1rem;
 }
 
 .ficheproduit-contenant__gauche {
