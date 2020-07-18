@@ -11,6 +11,8 @@ function get (url){
 			if(erreur){
 			erreur.remove();
 			}
+        }else {
+            console.log("Erreur de connexion à l'API");
         }
     }
     product.open("GET", url);
@@ -30,6 +32,9 @@ function post (url, data){
             resolve(JSON.parse(product.responseText))
         }
     }
+    product.open("GET", url);
+    product.send(data);
+
     })
   
 }
