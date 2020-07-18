@@ -377,7 +377,7 @@ footer {
 /*bouton*/
 
 .btn {
-	margin: 1rem 0;
+	margin: 1rem 2rem 1rem 1rem;
 	border-radius: 0.8em;
 	border: none;
 	cursor: pointer;
