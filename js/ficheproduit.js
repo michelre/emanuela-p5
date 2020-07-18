@@ -56,13 +56,6 @@ async function detailProduit(){
     	});
 	};
 	
-	function onLoadcartNumbers() {
-		let productNumbers = localStorage.getItem('cartNumbers');
-	
-		if(productNumbers){
-			document.getElementById('nombredeproduit').textContent = productNumbers;
-		}
-	}
 
 	 /*Fonction ajouter le produit au panier de l'utilisateur
  **********************************************/
