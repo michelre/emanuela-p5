@@ -50,22 +50,36 @@ get (apiUrl+idProduit).then((response)=>{
     	default:
     	console.log("Administration : Veuillez bien renseigner la variable produitSell ligne 4 du fichier ficheproduit.js");
     }
+// // Ajoute le produit au panier
+  const btn = document.getElementById("ajoutduproduitaupanier");
 
-      
-    /*Fonction ajouter le produit au panier de l'utilisateur
- **********************************************/
- addToCart= () =>{
-    //Au clic de l'user pour mettre le produit dans le panier
-    let AddProductToCart = document.getElementById("ajoutduproduitaupanier");
-    AddProductToCart.addEventListener("click",() =>{
-    
-    //Récupération du panier dans le localStorage et ajout du produit dans le panier avant revoit dans le localStorage
-    userPanier.push(response);
-    localStorage.setItem("userPanier", JSON.stringify(userPanier));
-    console.log("Administration : le produit a été ajouté au panier");
-    alert("Vous avez ajouté ce produit dans votre panier")
+  // Assigne valeur à envoyer à localStorage
+  const product = {
+    id: idProduit,
+    name: response.name,
+    price: response.price,
+    imageUrl: response.imageUrl,
+    quantity: 1,
+  };
+
+  // Envoie valeur à localStorage après un clique
+  btn.addEventListener("click", () => {
+    // récupérer panier localstorage
+    let panier = JSON.parse(localStorage.getItem("panier"));
+    if (panier === null) {
+      panier = {};
+    }
+    // ajouter le produit au panier
+    if (panier[product.id] !== undefined) {
+      panier[product.id].quantity += 1;
+    } else {
+      panier[product.id] = product;
+    }
+    // update panier localstorage
+    localStorage.setItem("panier", JSON.stringify(panier));
+    div.textContent = "Le produit a été ajouté au panier !";
+
 });
-};
 	});
 	
 
