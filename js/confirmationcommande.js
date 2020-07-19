@@ -23,7 +23,7 @@ get (apiUrl).then((response)=>{
 }else{
   //avertissement et redirection vers l'accueil
   alert("Aucune commande passée, vous êtes arrivé ici par erreur");
-  window.open("./index.html");
+  window.open("./index.html", "_self", "true");
 }
 });
 
