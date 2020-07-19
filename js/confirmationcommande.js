@@ -21,6 +21,8 @@ get (apiUrl).then((response)=>{
     //Suppression de la clé du sessionStorage pour renvoyer au else si actualisation de la page ou via url direct
     sessionStorage.removeItem("order");
 }else{
+	let confirmation = document.getElementById("confirmationdecommande");
+    section.style.display = "none";
   //avertissement et redirection vers l'accueil
   alert("Aucune commande passée, vous êtes arrivé ici par erreur");
   window.open("./index.html");
