@@ -23,6 +23,11 @@ get (apiUrl).then((response)=>{
 }else{
 	let confirmation = document.getElementById("confirmationdecommande");
     section.style.display = "none";
+
+confirmation = document.getElementById("confirmationdecommande");
+//On supprime le message de confirmation s'il existe
+if(confirmation){
+confirmation.remove();
   //avertissement et redirection vers l'accueil
   alert("Aucune commande passée, vous êtes arrivé ici par erreur");
   window.open("./index.html");
