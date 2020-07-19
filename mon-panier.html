@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+	<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<link rel="shortcut icon" type="image/png" href="img/oriphoto-favicon.png">
@@ -10,18 +10,28 @@
 	<script src="https://kit.fontawesome.com/9376b337f5.js" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins&display=swap" rel="stylesheet">
 
-</head>
-<body>
+	</head>
+	<body>
 		<header class="bgc">
-			<h1>
-				<img class="logo" src="img/oriphoto-logo.png" alt="Logo d'Oriphoto"/>riPhoto
-			</h1>
 			<nav class="flexbox">
-				<a href="index.html" class="focus">Accueil<i class="fas fa-caret-right"></i></a>
-				<a href="mon-panier.html" class="focus">Panier<i class="fas fa-shopping-cart"></i><span id="nombredeproduit">0</span></a>
+				<ul>
+					<li>
+						<a href="index.html" class="focus">
+							<h1>
+								<img class="logo" src="img/oriphoto-logo.png" alt="Logo d'Oriphoto"/>riPhoto
+							</h1>
+						</a>
+					</li>
+					<li>
+						<a href="index.html" class="focus">Accueil<i class="fas fa-caret-right"></i></a>
+					</li>
+					<li class="cart">
+						<a href="mon-panier.html" class="focus">Panier<i class="fas fa-shopping-cart"></i><span id="nombredeproduit">0</span></a>
+					</li>
+				</ul>
 			</nav>
 		</header>
-	<main>
+		<main>
 			<h2 class="principal bgc">mon panier</h2>
 			<div id="resumepanier">
 				<p id="paniervide">Votre panier est actuellement vide</p>
