@@ -21,9 +21,6 @@ get (apiUrl).then((response)=>{
     //Suppression de la clé du sessionStorage pour renvoyer au else si actualisation de la page ou via url direct
     sessionStorage.removeItem("order");
 }else{
-	let confirmation = document.getElementById("confirmationdecommande");
-    section.style.display = "none";
-
 confirmation = document.getElementById("confirmationdecommande");
 //On supprime le message de confirmation s'il existe
 if(confirmation){
