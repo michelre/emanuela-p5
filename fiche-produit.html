@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-	<link rel="shortcut icon" type="image/png" href="favicon.jpg">
+	<link rel="shortcut icon" type="image/png" href="img/oriphoto-favicon.png">
 	<title>OriPhoto</title>
 	<meta name="description" content="OriPhoto est une filiale de ORINOCO, site de vente en ligne, qui vend des appareils photo vintages">
 	<!-- Twitter Card data -->
@@ -23,22 +23,12 @@
 
         <body class="heigtauto">
 		<header class="bgc">
+			<h1>
+				<img class="logo" src="img/oriphoto-logo.png" alt="Logo d'Oriphoto"/>riPhoto
+			</h1>
 			<nav class="flexbox">
-				<ul>
-					<li>
-						<a href="index.html" class="focus">
-							<h1>
-								<img class="logo" src="img/oriphoto-logo.png" alt="Logo d'Oriphoto"/>riPhoto
-							</h1>
-						</a>
-					</li>
-					<li>
-						<a href="index.html" class="focus">Accueil<i class="fas fa-caret-right"></i></a>
-					</li>
-					<li class="panier">
-						<a href="mon-panier.html" class="focus">Panier<i class="fas fa-shopping-cart"></i><span id="nombredeproduit">0</span></a>
-					</li>
-				</ul>
+				<a href="index.html" class="focus">Accueil<i class="fas fa-caret-right"></i></a>
+				<a href="mon-panier.html" class="focus">Panier<i class="fas fa-shopping-cart"></i><span id="nombredeproduit">0</span></a>
 			</nav>
 		</header>
 		<main>
@@ -82,9 +72,12 @@
 			<a href="index.html" title="Lien vers Instagram"><i class="fa fa-instagram icon-social"></i></a>
 		</div>
 	</footer> 
-		<script src="js/ficheproduit.js"></script>
-	<script>
-		detailProduit();
-	</script>
+	<script src="js/ajax.js"></script>
+
+
+
+
+
+	<script src="js/ficheproduit.js"></script>
 </body>
 </html>
