@@ -58,8 +58,9 @@ get (apiUrl+idProduit).then((response)=>{
   });
 // // Ajoute le produit au panier
   const btn = document.getElementById("ajoutduproduitaupanier");
-  const div = document.createElement("div");
-  div.classList.add("add-to-cart");
+  const produitdanspanier = document.createElement("div");
+  let ficheduproduit = document.getElementById("ficheduproduit")
+  ficheduproduit.appendChild(produitdanspanier)
 
   // Assigne valeur à envoyer à localStorage
   const product = {
@@ -67,6 +68,7 @@ get (apiUrl+idProduit).then((response)=>{
     name: response.name,
     price: response.price,
     imageUrl: response.imageUrl,
+    personnalisation: response.lenseChoosen,
     quantity: 1,
   };
 
@@ -85,8 +87,7 @@ get (apiUrl+idProduit).then((response)=>{
     }
     // update panier localstorage
     localStorage.setItem("panier", JSON.stringify(panier));
-    div.textContent = "Le produit a été ajouté au panier !";
-    console.log(localStorage.setItem);
+    produitdanspanier.textContent = "Le produit a été ajouté au panier !";
 
 });
 	});
