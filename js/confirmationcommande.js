@@ -1,29 +1,8 @@
-/*Génération de l'URL de l'API selon le choix de produit à vendre
-**********************************************/
-
-const produitSell = "cameras"  //Au choix entre : "cameras" - "furniture" - "teddies"
-const apiUrl = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
-
-//id du produit pour permettre un tri dans l'API
-
-let idProduit = "";
-
-
-
-get (apiUrl).then((response)=>{
-	if(sessionStorage.getItem("order") != null){
-    //Parse du session storage
-    let order = JSON.parse(sessionStorage.getItem("order"));
-    //Implatation de prénom et de id de commande dans le html sur la page de confirmation
-    document.getElementById("lastName").innerHTML = order.contact.lastName
-    document.getElementById("orderId").innerHTML = order.orderId
-    
-    //Suppression de la clé du sessionStorage pour renvoyer au else si actualisation de la page ou via url direct
-    sessionStorage.removeItem("order");
-}else{
-  //avertissement et redirection vers l'accueil
-  alert("Aucune commande passée, vous êtes arrivé ici par erreur");
-  window.open("./index.html", "_self", "true");
-}
-});
+const orderInformation = window.location.search.substr(1).split("&");
+const orderId = orderInformation[0].replace("id=", "");
+const totalPrice = orderInformation[1].replace("price=", "");
+const userName = orderInformation[2].replace("user=", "");
+console.log((document.querySelector(".user").textContent += " " + userName));
+document.querySelector(".order-id").textContent += " " + orderId;
+document.querySelector(".price").textContent += " " + totalPrice;
 
