@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<link rel="shortcut icon" type="image/png" href="img/oriphoto-favicon.png">
@@ -10,7 +10,7 @@
 	<script src="https://kit.fontawesome.com/9376b337f5.js" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins&display=swap" rel="stylesheet">
 
-	</head>
+</head>
 	<body>
 		<header class="bgc">
 			<nav class="flexbox">
@@ -33,11 +33,12 @@
 		</header>
 		<main>
 			<h2 class="principal bgc">mon panier</h2>
-			<div id="resumepanier">
-				<p id="paniervide">Votre panier est actuellement vide</p>
-				<a class="btn btn__achat bgc majuscule focus"id="retournersurlacceuil"href="index.html"><i class="fas fa-caret-left"></i>retourner sur l'acceuil</a>
-		</div>
-		<section class="conteneur__demie">
+			<a class="btn btn__achat bgc majuscule focus"id="retournersurlacceuil"href="index.html"><i class="fas fa-caret-left"></i>retourner sur l'acceuil</a>
+			</p>
+			<section id="panier">
+			<h3 id="panier-total"></h3>
+			</section>
+			<section class="conteneur__demie">
 				<form action="" method="post" name="formulairedecommande">
 					<fieldset>
 						<legend>Votre Adresse :</legend>
@@ -66,12 +67,12 @@
 							</div>
 						</div>
 					</fieldset>  
-						<button type="submit" id="envoiformulaire">Valider la commande</button>
-						<button type="reset">Effacer</button>
+					<button type="submit" id="envoiformulaire">Valider la commande</button>
+					<button type="reset">Effacer</button>
 				</form>
 			</section>
-	</main>
-	<footer  class="bgc flexbox">
+		</main>
+		<footer  class="bgc flexbox">
 			<div>
 				<a href="index.html" title="Lien vers Twitter"><i class="fa fa-twitter icon-social"></i></a>
 			</div>
@@ -82,6 +83,14 @@
 				<a href="index.html" title="Lien vers Instagram"><i class="fa fa-instagram icon-social"></i></a>
 			</div>
 		</footer> 
-	<script src="js/panier.js"></script>
-</body>
+
+
+		<!-- Scripts JS -->
+		<script src="js/ajax.js"></script>
+	
+	
+	
+	
+		<script src="js/paniercommande.js"></script>
+	</body>
 </html>

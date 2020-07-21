@@ -23,61 +23,73 @@
 
         <body class="heigtauto">
 		<header class="bgc">
-			<h1>
-				<img class="logo" src="img/oriphoto-logo.png" alt="Logo d'Oriphoto"/>riPhoto
-			</h1>
 			<nav class="flexbox">
-				<a href="index.html" class="focus">Accueil<i class="fas fa-caret-right"></i></a>
-				<a href="mon-panier.html" class="focus">Panier<i class="fas fa-shopping-cart"></i><span id="nombredeproduit">0</span></a>
+				<ul>
+					<li>
+						<a href="index.html" class="focus">
+							<h1>
+								<img class="logo" src="img/oriphoto-logo.png" alt="Logo d'Oriphoto"/>riPhoto
+							</h1>
+						</a>
+					</li>
+					<li>
+						<a href="index.html" class="focus">Accueil<i class="fas fa-caret-right"></i></a>
+					</li>
+					<li class="panier">
+						<a href="mon-panier.html" class="focus">Panier<i class="fas fa-shopping-cart"></i><span id="nombredeproduit">0</span></a>
+					</li>
+				</ul>
 			</nav>
 		</header>
 		<main>
-		<section id="ficheduproduit" class="ficheduproduit conteneur__demie">
-		<img id="imageduproduit" class="article-image" alt="Photo du produit">
-		<h2 class="bgc">fiche du <span id="nomduproduit"></span></h2>
-		<div class="flexbox conteneur__bleu">
-			<div class="ficheproduit-contenant__gauche">
-				<div class="ficheproduit-contenu">
-					<p class="ficheduproduit-titre">Description :</p>
-					<p id="descriptionduproduit" class="ficheduproduit-description__resume"></p>
-					<label for="optionSelect" class="ficheduproduit-titre">Personnalisez votre appareil :</label>
-					<select name="option" id="option">
-						<option value="">Faites votre choix</option>
-					</select>
+			<section id="ficheduproduit" class="ficheduproduit conteneur__demie">
+				<img id="imageduproduit" class="article-image" alt="Photo du produit">
+				<h2 class="bgc">fiche du <span id="nomduproduit"></span></h2>
+				<div class="flexbox conteneur__bleu">
+					<div class="ficheproduit-contenant__gauche">
+						<div class="ficheproduit-contenu">
+							<p class="ficheduproduit-titre">Description :</p>
+							<p id="descriptionduproduit" class="ficheduproduit-description__resume"></p>
+							<label for="optionSelect" class="ficheduproduit-titre">Personnalisez votre appareil :</label>
+							<select name="option" id="option">
+								<option value="">Faites votre choix</option>
+							</select>
+						</div>
+					</div>
+					<div class="ficheproduit-contenant__droit">
+						<div class="ficheproduit-contenu">
+							<p id="prixduproduit"></p>
+							<button class="bgc__secondaire btn btn--panier" id="ajoutduproduitaupanier">Ajouter au panier</button>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="ficheproduit-contenant__droit">
-				<div class="ficheproduit-contenu">
-					<p id="prixduproduit"></p>
-					<button class="bgc__secondaire btn btn--panier" id="ajoutduproduitaupanier">Ajouter au panier</button>
-				</div>
-			</div>
-		</div>
-		</section>
-		<div id="erreur">
+			</section>
+			<div id="erreur">
 				<div class="conteneur__erreur">
 					<p id="erreur-message" class=""><i class="fas fa-cogs" aria-hidden="true"></i> Veuillez recharger ou réessayer plus tard. Si l'erreur persiste, veuillez contacter le Webmaster</p>
 					<p id="erreur-titre" class="bgc__secondaire majuscule">erreur interne</p>
 				</div>
 			</div>
-	</main>
-<footer  class="bgc flexbox">
-		<div>
-			<a href="index.html" title="Lien vers Twitter"><i class="fa fa-twitter icon-social"></i></a>
-		</div>
-		<div>
-			<a href="index.html" title="Lien vers Facebook"><i class="fa fa-facebook icon-social"></i></a>
-		</div>
-		<div>
-			<a href="index.html" title="Lien vers Instagram"><i class="fa fa-instagram icon-social"></i></a>
-		</div>
-	</footer> 
-	<script src="js/ajax.js"></script>
+		</main>
+		<footer  class="bgc flexbox">
+			<div>
+				<a href="index.html" title="Lien vers Twitter"><i class="fa fa-twitter icon-social"></i></a>
+			</div>
+			<div>
+				<a href="index.html" title="Lien vers Facebook"><i class="fa fa-facebook icon-social"></i></a>
+			</div>
+			<div>
+				<a href="index.html" title="Lien vers Instagram"><i class="fa fa-instagram icon-social"></i></a>
+			</div>
+		</footer> 
 
 
-
-
-
-	<script src="js/ficheproduit.js"></script>
-</body>
+		<!-- Scripts JS -->
+		<script src="js/ajax.js"></script>
+	
+	
+	
+	
+		<script src="js/ficheproduit.js"></script>
+	</body>
 </html>
