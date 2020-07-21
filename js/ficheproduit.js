@@ -50,8 +50,16 @@ get (apiUrl+idProduit).then((response)=>{
     	default:
     	console.log("Administration : Veuillez bien renseigner la variable produitSell ligne 4 du fichier ficheproduit.js");
     }
+
+     // Récupère la lentille choisie dans la console
+  option.addEventListener("change", (e) => {
+    lenseChosen = e.target.value;
+    console.log(lenseChosen);
+  });
 // // Ajoute le produit au panier
   const btn = document.getElementById("ajoutduproduitaupanier");
+  const div = document.createElement("div");
+  div.classList.add("add-to-cart");
 
   // Assigne valeur à envoyer à localStorage
   const product = {
@@ -77,6 +85,8 @@ get (apiUrl+idProduit).then((response)=>{
     }
     // update panier localstorage
     localStorage.setItem("panier", JSON.stringify(panier));
+    div.textContent = "Le produit a été ajouté au panier !";
+    console.log(localStorage.setItem);
 
 });
 	});
