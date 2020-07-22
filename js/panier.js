@@ -7,9 +7,7 @@ const apiUrl = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
 const cart = document.querySelector("#panier"); // Récupère la section du panier
 const cartTotal = document.getElementById("panier-total"); //Récupère le h3 pour le prix total
 const form = document.querySelector("form"); // Récupère le formulaire
-const iconMoins = document.getElementByClassName("fa-minus-circle")
-const iconPlus = document.getElementByClassName("fa-plus-circle")
-const removeElt =  document.getElementByClassName("supprime")
+
 
 const cartInformation = {
     contact: {},
@@ -38,6 +36,7 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
 };
 /* Supprime élément du panier sur un clique*/
 const deleteCart = (removeElt, container, productId) => {
+const removeElt =  document.getElementByClassName("supprime")
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
         if (panier === null) return;
@@ -53,8 +52,9 @@ const deleteCart = (removeElt, container, productId) => {
 };
 
 // soustrait et enlève un produit au panier
-const soustractionItem = (iconMoins, container, productId) => {
-    iconMoins.addEventListener("click", () => {
+    const soustractionItem = (iconMoins, container, productId) => {
+        const iconMoins = document.getElementByClassName("fa-minus-circle")
+        iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
         if (panier === null) return;
         if (panier[productId] === undefined) return;
@@ -72,6 +72,7 @@ const soustractionItem = (iconMoins, container, productId) => {
 
 // additionne et rajoute un produit au panier
 const additionItem = (iconPlus, container, productId) => {
+    const iconPlus = document.getElementByClassName("fa-plus-circle")
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
         if (panier === null) return;
