@@ -1,18 +1,5 @@
-/*Génération de l'URL de l'API selon le choix de produit à vendre
-**********************************************/
-
-const produitSell = "cameras"  //Au choix entre : "cameras" - "furniture" - "teddies"
-const apiUrl = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
-
-//id des différents produits dans l'API
-
-let idProduit = "";
-
-//Collecter l'URL après le ?id= pour le récupérer uniquement sur l'API
-idProduit = location.search.substring(4);
-
-const cart = document.querySelector("#cart"); // Récupère la section du panier
-const cartTotal = document.getElementById("cart-total"); //Récupère le h3 pour le prix total
+const cart = document.querySelector("#panier"); // Récupère la section du panier
+const cartTotal = document.getElementById("panier-total"); //Récupère le h3 pour le prix total
 const form = document.querySelector("form"); // Récupère le formulaire
 
 const cartInformation = {
@@ -23,46 +10,52 @@ const cartInformation = {
 let totalPrice = 0;
 
 // Affiche le/les produit(s) du panier.
-get (apiUrl+idProduit).then((response)=>{
+const displayCart = async () => {
   const cartItems = JSON.parse(localStorage.getItem("panier"));
   if (Object.keys(cartItems).length > 0) {
     for (let i = 0; i < Object.keys(cartItems).length; i++) {
       // Pour chaque article du panier
       const itemId = Object.keys(cartItems)[i];
-      const product = getItem(itemId); // Récupère les informations du produit
-      const camId = idProduit; // Stocke l'id du produit
-      const camName = response.name; // Stocke le nom du produit
-      const camPrice = response.price / 100; // Stocke le prix du produit
-      const camImg = response.imageUrl; // Stocke l'image du produit
+      const product = await getItem(itemId); // Récupère les informations du produit
+      const camId = product._id; // Stocke l'id du produit
+      const camName = product.name; // Stocke le nom du produit
+      const camPrice = product.price / 100; // Stocke le prix du produit
+      const camImg = product.imageUrl; // Stocke l'image du produit
       const camQuantity = cartItems[itemId].quantity;
       cartInformation.products.push(camId); // Envoie l'id du produit au tableau products de cartInformation
       renderCart(camName, camPrice, camImg, camQuantity); // Fourni l'affichage du/des produits du panier
 
       const remove = document.querySelectorAll(".supprime")[i];
       const article = document.querySelectorAll("article")[i];
-      const iconMoins = document.querySelectorAll(".fas fa-minus-circle")[i];
-      const iconPlus = document.querySelectorAll("fas fa-plus-circle")[i];
+      const iconMoins = document.querySelectorAll(".fas fa-plus-circle")[i];
+      const iconPlus = document.querySelectorAll(".fas fa-minus-circle")[i];
       iconMoins.style.fontSize = "20px";
       iconPlus.style.fontSize = "20px";
       deleteCart(remove, article, itemId);
-      soustractionItem(iconMoins, article, itemId); // soustraction
-      additionItem(iconPlus, article, itemId); // addition
+      decrementItem(iconMoins, article, itemId); // appel de la fonction décrémentation avec la flèche de gauche
+      incrementItem(iconPlus, article, itemId); // appel de la fonction incrémentation avec la flèche de droite
     }
   } else {
     cart.textContent = "Votre panier est vide.";
     form.classList.add("invisible");
   }
-});
-
+};
+// Récupère élément dans localStorage
+const getItem = async (productId) => {
+  const response = await fetch(
+    "https://oc-p5-api.herokuapp.com/api/cameras" + productId
+  );
+  return await response.json();
+};
 // Fourni l'affichage du/des produits du panier
 const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
   /* Affiche article(s) du panier */
   const article = document.createElement("article");
   article.innerHTML = `
     <img src="${imgUrl}">
-    <div class="produit-information>
-        <p class="produit-nom">${productName}</p>
-        <p class="produit-prix">${productPrice}</p>
+    <div class="product-information>
+        <p class="product-title">${productName}</p>
+        <p class="price">${productPrice}</p>
     </div>
     <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>
     <p class="supprime ">supprimer</p>`;
@@ -73,7 +66,7 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
 };
 /* Supprime élément du panier sur un clique*/
 const deleteCart = (removeElt, container, productId) => {
-  removeElt.addEventListener("click", () => {
+  removeElt.addEventListener("click", async () => {
     const panier = JSON.parse(localStorage.getItem("panier"));
     if (panier === null) return;
     if (panier[productId] === undefined) return;
@@ -87,10 +80,10 @@ const deleteCart = (removeElt, container, productId) => {
   });
 };
 
-// soustrait et enlève un produit au panier
+// soustrait et enlève un produit au panier avec la flèche de gauche
 
 const soustractionItem = (iconMoins, container, productId) => {
-  iconMoins.addEventListener("click",  () => {
+  iconMoins.addEventListener("click", async () => {
     const panier = JSON.parse(localStorage.getItem("panier"));
     if (panier === null) return;
     if (panier[productId] === undefined) return;
@@ -106,10 +99,10 @@ const soustractionItem = (iconMoins, container, productId) => {
   });
 };
 
-// additionne et rajoute un produit au panier
+// additione et rajoute un produit au panier
 
 const additionItem = (iconPlus, container, productId) => {
-  iconPlus.addEventListener("click", () => {
+  iconPlus.addEventListener("click", async () => {
     const panier = JSON.parse(localStorage.getItem("panier"));
     if (panier === null) return;
     if (panier[productId] === undefined) return;
@@ -125,61 +118,67 @@ const additionItem = (iconPlus, container, productId) => {
   });
 };
 
-//Validation de notre formulaire de Commande
+displayCart();
 
 form.addEventListener('submit', (e) => {
-    e.preventDefault()
-    console.log('Nom:', e.target.nomclient.value)
-    console.log('Prénom:', e.target.prenomclient.value)
-    console.log('Email:', e.target.emailclient.value)
-    console.log('Adresse:', e.target.adresseclient.value)
-    console.log('Ville:', e.target.villeclient.value)
+  e.preventDefault()
+  console.log('Nom:', e.target.nomclient.value)
+  console.log('Prénom:', e.target.prenomclient.value)
+  console.log('Email:', e.target.emailclient.value)
+  console.log('Adresse:', e.target.adresseclient.value)
+  console.log('Ville:', e.target.villeclient.value)
 });
 
 const inputs = document.querySelectorAll("input")
 const textareas = document.querySelectorAll("textarea")
 
 const checkValidity = (input) => {
-    input.addEventListener('invalid', (e) => {
-        e.preventDefault()
-        if (!e.target.validity.valid) {
-            e.target.parentElement.classList.add('erreur__formulaire')
-        }
-    })
+  input.addEventListener('invalid', (e) => {
+      e.preventDefault()
+      if (!e.target.validity.valid) {
+          e.target.parentElement.classList.add('erreur__formulaire')
+      }
+  })
 
-    input.addEventListener('input', (e) => {
-        if (e.target.validity.valid) {
-            e.target.parentElement.classList.remove('erreur__formulaire')
-            return (cartInformation.contact = {
-              // Si toutes les inputs saisies sont valides, renvoie l'objet contact à cartInformation
-              lastName: nomclient.value,
-              firstName: prenomclient.value,
-              email: emailclient.value,
-              address: adresseclient.value,
-              city: villeclient.value,
-        })}
-        }
-  );
+  input.addEventListener('input', (e) => {
+      if (e.target.validity.valid) {
+          e.target.parentElement.classList.remove('erreur__formulaire')
+          return (cartInformation.contact = {
+            // Si toutes les inputs saisies sont valides, renvoie l'objet contact à cartInformation
+            lastName: nomclient.value,
+            firstName: prenomclient.value,
+            email: emailclient.value,
+            address: adresseclient.value,
+            city: villeclient.value,
+      })}
+      }
+);
 
 Array.from(inputs).forEach(checkValidity);
 Array.from(textareas).forEach(checkValidity);
 
 // Envoie données à l'api
-post ("https://oc-p5-api.herokuapp.com/api/cameras/order").then((response)=>{
-  const btn = document.getElementById("envoiformulaire");
-btn.addEventListener("click", (e) => {
+const btn = document.getElementById("envoiformulaire");
+const postData = async (method, url, dataElt) => {
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method,
+    body: JSON.stringify(dataElt),
+  });
+  return await response.json();
+};
+
+btn.addEventListener("click", async (e) => {
   e.preventDefault();
-  let panier = JSON.parse(localStorage.getItem("panier"));
-  if (panier === null) {
-    console.log ("impossible d'envoyer le formulaire de commande")
-  }else {
-          postData(
-         "POST",
-         "https://oc-p5-api.herokuapp.com/api/cameras/order",
-          cartInformation
+  const validForm = formValidate(); // Valide le formulaire
+  if (validForm !== false) {
+    const response = await postData(
+      "POST",
+      "https://oc-p5-api.herokuapp.com/api/order",
+      cartInformation
     ); // Envoie données au serveur
-    window.location = `./fiche-produit.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
-  }})
-
-
+    window.location = `./fiche-produit?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
+  }
 });
