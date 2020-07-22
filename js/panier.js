@@ -26,8 +26,8 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
         <p class="produit-prix">${productPrice}</p>
     </div>
     <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>
-    <p class="supprime ">supprimer</p>`;
-    cart.insertBefore(article, cartTotal); // Insère article avant cartTotal
+    <p class="supprime">supprimer</p>`;
+    cart.apendChild(cartTotal); // Insère article avant cartTotal
     totalPrice += productPrice * productQuantity; /* Implémente prix */
     cartTotal.textContent = `Total : ${totalPrice}€`; /* Affiche le prix total */
     cart.appendChild(article)
