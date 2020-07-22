@@ -26,8 +26,8 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
         <p class="produit-prix">${productPrice}</p>
     </div>
     <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>
-    <p class="supprime">supprimer</p>`;
-    cart.apendChild(cartTotal); // Insère article avant cartTotal
+    <p class="supprime ">supprimer</p>`;
+    cart.insertBefore(article, cartTotal); // Insère article avant cartTotal
     totalPrice += productPrice * productQuantity; /* Implémente prix */
     cartTotal.textContent = `Total : ${totalPrice}€`; /* Affiche le prix total */
     cart.appendChild(article)
@@ -49,6 +49,7 @@ const deleteCart = (removeElt, container, productId) => {
 };
 
 // soustrait et enlève un produit au panier
+
 const soustractionItem = (iconMoins, container, productId) => {
     iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -134,7 +135,9 @@ const checkValidity = (input) => {
             if (panier === null) {
                 console.log("impossible d'envoyer le formulaire de commande")
             } else {
-                (
+                postData(
+                    "POST",
+                    "https://oc-p5-api.herokuapp.com/api/cameras/order",
                     cartInformation
                 ); // Envoie données au serveur
                 window.location = `./confirmation-de-commande.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
