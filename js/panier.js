@@ -178,7 +178,7 @@ btn.addEventListener("click", (e) => {
          "https://oc-p5-api.herokuapp.com/api/cameras/order",
           cartInformation
     ); // Envoie données au serveur
-    window.location = `./fiche-produit.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
+    window.location = `./confirmation-de-commande.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
   }})
 
 
