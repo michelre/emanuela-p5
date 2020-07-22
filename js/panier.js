@@ -50,7 +50,7 @@ const deleteCart = (removeElt, container, productId) => {
 };
 
 // soustrait et enlève un produit au panier
-let iconeMoins= document.getElementByClassName("fa-minus-circle")
+const iconMoins= document.getElementByClassName("fa-minus-circle")
 const soustractionItem = (iconMoins, container, productId) => {
     iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -69,7 +69,7 @@ const soustractionItem = (iconMoins, container, productId) => {
 };
 
 // additionne et rajoute un produit au panier
-let iconePlus= document.getElementByClassName("fa-plus-circle")
+const iconPlus= document.getElementByClassName("fa-plus-circle")
 const additionItem = (iconPlus, container, productId) => {
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
