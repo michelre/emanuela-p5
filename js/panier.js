@@ -51,7 +51,7 @@ const deleteCart = (removeElt, container, productId) => {
 
 // soustrait et enlève un produit au panier
 
-const IconMoins = document.querySelector(".fas fa-minus-circle");
+const iconMoins = document.querySelector(".fas fa-minus-circle");
 const soustractionItem = (iconMoins, container, productId) => {
     iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -71,7 +71,7 @@ const soustractionItem = (iconMoins, container, productId) => {
 
 // additionne et rajoute un produit au panier
 
-const IconPlus = document.querySelector(".fas fa-plus-circle");
+const iconPlus = document.querySelector(".fas fa-plus-circle");
 const additionItem = (iconPlus, container, productId) => {
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -79,9 +79,7 @@ const additionItem = (iconPlus, container, productId) => {
         if (panier[productId] === undefined) return;
         if (panier[productId].quantity >= 1) {
             panier[productId].quantity++;
-        } else {
-            delete panier[productId];
-        }
+        } 
         localStorage.setItem("panier", JSON.stringify(panier));
         // ); /* Supprime item du localStorage */
         container.remove(); /* Supprime item du DOM */
