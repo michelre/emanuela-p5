@@ -8,6 +8,13 @@ const cart = document.querySelector("#panier"); // Récupère la section du pani
 const cartTotal = document.getElementById("panier-total"); //Récupère le h3 pour le prix total
 const form = document.querySelector("form"); // Récupère le formulaire
 
+//id des différents produits dans l'API
+
+let idProduit = "";
+
+//Collecter l'URL après le ?id= pour le récupérer uniquement sur l'API
+idProduit = location.search.substring(4);
+
 const cartInformation = {
     contact: {},
     products: [],
@@ -33,6 +40,7 @@ const renderCart = (productId, productName, productPrice, imgUrl, productQuantit
     cart.appendChild(article)
 };
 /* Supprime élément du panier sur un clique*/
+let removeElt = getElementById('')
 const deleteCart = (removeElt, container, productId) => {
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
