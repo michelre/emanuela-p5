@@ -16,11 +16,11 @@ const cartInformation = {
 let totalPrice = 0;
 
 // Fourni l'affichage du/des produits du panier
-const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
+const renderCart = (productId, productName, productPrice, imgUrl, productQuantity) => {
     /* Affiche article(s) du panier */
     const article = document.createElement("article");
     article.innerHTML = `
-    <img src="${imgUrl}" width="50px">
+    <a href="fiche-produit.html?id=${productId}"><img src="${imgUrl}" width="50px"></a>
     <div class="produit-information>
         <p class="produit-nom">${productName}</p>
         <p class="produit-prix">${productPrice}</p>
@@ -148,7 +148,5 @@ const checkValidity = (input) => {
 
 const panier = JSON.parse(localStorage.getItem('panier'))
 for(let product of Object.values(panier)){
-    renderCart(product.name, product.price, product.imageUrl, product.quantity)
+    renderCart(product.Id, product.name, product.price, product.imageUrl, product.quantity)
 }
-
-
