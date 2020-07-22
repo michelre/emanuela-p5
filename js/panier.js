@@ -10,17 +10,17 @@ const form = document.querySelector("form"); // Récupère le formulaire
 
 const cartInformation = {
     contact: {},
-    products: [],
+    product: [],
 };
 /* Stock le prix total */
 let totalPrice = 0;
 
 // Fourni l'affichage du/des produits du panier
-const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
+const renderCart = (productName, productPrice, product.imageUrl, productId, productQuantity) => {
     /* Affiche article(s) du panier */
     const article = document.createElement("article");
     article.innerHTML = `
-    <img src="${imgUrl}" width="50px">
+    <a href=""fiche-produit.html?id=" + produit._id/${productId}"><img src="${product.imageUrl}" width="50px"></a>
     <div class="produit-information>
         <p class="produit-nom">${productName}</p>
         <p class="produit-prix">${productPrice}</p>
@@ -130,7 +130,7 @@ const checkValidity = (input) => {
 // Envoie données à l'api
     post("https://oc-p5-api.herokuapp.com/api/cameras/order").then((response) => {
         const btn = document.getElementById("envoiformulaire");
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", () => {
             e.preventDefault();
             let panier = JSON.parse(localStorage.getItem("panier"));
             if (panier === null) {
