@@ -20,7 +20,7 @@ const renderCart = (productName, productPrice, product.imageUrl, productId, prod
     /* Affiche article(s) du panier */
     const article = document.createElement("article");
     article.innerHTML = `
-    <a href=""fiche-produit.html?id=" + produit._id/${productId}"><img src="${product.imageUrl}" width="50px"></a>
+    <a href="fiche-produit.html?id=${productId}"><img src="${product.imageUrl}" width="50px"></a>
     <div class="produit-information>
         <p class="produit-nom">${productName}</p>
         <p class="produit-prix">${productPrice}</p>
