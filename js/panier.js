@@ -33,7 +33,6 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
     cart.appendChild(article)
 };
 /* Supprime élément du panier sur un clique*/
-const removeElt = document.querySelector(".supprime"); 
 const deleteCart = (removeElt, container, productId) => {
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -51,7 +50,6 @@ const deleteCart = (removeElt, container, productId) => {
 
 // soustrait et enlève un produit au panier
 
-const iconMoins = document.querySelector(".fas fa-minus-circle");
 const soustractionItem = (iconMoins, container, productId) => {
     iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -71,7 +69,6 @@ const soustractionItem = (iconMoins, container, productId) => {
 
 // additionne et rajoute un produit au panier
 
-const iconPlus = document.querySelector(".fas fa-plus-circle");
 const additionItem = (iconPlus, container, productId) => {
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -79,7 +76,9 @@ const additionItem = (iconPlus, container, productId) => {
         if (panier[productId] === undefined) return;
         if (panier[productId].quantity >= 1) {
             panier[productId].quantity++;
-        } 
+        } else {
+            delete panier[productId];
+        }
         localStorage.setItem("panier", JSON.stringify(panier));
         // ); /* Supprime item du localStorage */
         container.remove(); /* Supprime item du DOM */
@@ -130,7 +129,7 @@ const checkValidity = (input) => {
 // Envoie données à l'api
     post("https://oc-p5-api.herokuapp.com/api/cameras/order").then((response) => {
         const btn = document.getElementById("envoiformulaire");
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (e) => {
             e.preventDefault();
             let panier = JSON.parse(localStorage.getItem("panier"));
             if (panier === null) {
@@ -151,3 +150,5 @@ const panier = JSON.parse(localStorage.getItem('panier'))
 for(let product of Object.values(panier)){
     renderCart(product.name, product.price, product.imageUrl, product.quantity)
 }
+
+
