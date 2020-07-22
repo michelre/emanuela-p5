@@ -8,169 +8,124 @@ const apiUrl = "https://oc-p5-api.herokuapp.com/api/" + produitSell + "/";
 
 let idProduit = "";
 
-/*Appel de l'API
-**********************************************/
+//Collecter l'URL après le ?id= pour le récupérer uniquement sur l'API
+idProduit = location.search.substring(4);
 
-get = () =>{
-	return new Promise((resolve) =>{
-		let request = new XMLHttpRequest();
-		request.onreadystatechange = function() {
-			if(this.readyState == XMLHttpRequest.DONE && this.status == 200) 
-			{
-				resolve(JSON.parse(this.responseText));
-				console.log("Vous êtes connecté à l'API");
+const cart = document.querySelector("#cart"); // Récupère la section du panier
+const cartTotal = document.getElementById("cart-total"); //Récupère le h3 pour le prix total
+const form = document.querySelector("form"); // Récupère le formulaire
 
-				//L'appel est réussi => suppression des message d'erreur
-				error = document.getElementById("erreur");
-				//On supprime le message d'erreur s'il existe
-				if(error){
-					error.remove();
-				}
-			}else{
-				console.log("Erreur de connexion à l'API");
-			}
-		}
-		request.open("GET", apiUrl + idProduit);
-		request.send();
-	});
+const cartInformation = {
+  contact: {},
+  products: [],
+};
+/* Stock le prix total */
+let totalPrice = 0;
+
+// Affiche le/les produit(s) du panier.
+const displayCart = () => {
+  const cartItems = JSON.parse(localStorage.getItem("panier"));
+  if (Object.keys(cartItems).length > 0) {
+    for (let i = 0; i < Object.keys(cartItems).length; i++) {
+      // Pour chaque article du panier
+      const itemId = Object.keys(cartItems)[i];
+      const product = getItem(itemId); // Récupère les informations du produit
+      const camId = idProduit; // Stocke l'id du produit
+      const camName = response.name; // Stocke le nom du produit
+      const camPrice = response.price / 100; // Stocke le prix du produit
+      const camImg = response.imageUrl; // Stocke l'image du produit
+      const camQuantity = cartItems[itemId].quantity;
+      cartInformation.products.push(camId); // Envoie l'id du produit au tableau products de cartInformation
+      renderCart(camName, camPrice, camImg, camQuantity); // Fourni l'affichage du/des produits du panier
+
+      const remove = document.querySelectorAll(".remove")[i];
+      const article = document.querySelectorAll("article")[i];
+      const iconMoins = document.querySelectorAll(".fas fa-plus-circle")[i];
+      const iconPlus = document.querySelectorAll(".fas fa-minus-circle")[i];
+      iconMoins.style.fontSize = "20px";
+      iconPlus.style.fontSize = "20px";
+      deleteCart(remove, article, itemId);
+      soustractionItem(iconMoins, article, itemId); // soustraction
+      additionItem(iconPlus, article, itemId); // addition
+    }
+  } else {
+    cart.textContent = "Votre panier est vide.";
+    form.classList.add("invisible");
+  }
 };
 
-
-
-
-
-
-function onLoadcartNumbers() {
-    let productNumbers = localStorage.getItem('cartNumbers');
-
-    if(productNumbers){
-        document.getElementById('nombredeproduit').textContent = productNumbers;
+// Fourni l'affichage du/des produits du panier
+const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
+  /* Affiche article(s) du panier */
+  const article = document.createElement("article");
+  article.innerHTML = `
+    <img src="${imgUrl}">
+    <div class="produit-information>
+        <p class="produit-nom">${productName}</p>
+        <p class="produit-prix">${productPrice}</p>
+    </div>
+    <p class="quantity"><i class="fas fa-arrow-circle-left">${productQuantity}</i><i class="fas fa-arrow-circle-right"></i></p>
+    <p class="supprime ">supprimer</p>`;
+  cart.insertBefore(article, cartTotal); // Insère article avant cartTotal
+  totalPrice += productPrice * productQuantity; /* Implémente prix */
+  cartTotal.textContent = `Total : ${totalPrice}€`; /* Affiche le prix total */
+  console.log(article);
+};
+/* Supprime élément du panier sur un clique*/
+const deleteCart = (removeElt, container, productId) => {
+  removeElt.addEventListener("click", () => {
+    const panier = JSON.parse(localStorage.getItem("panier"));
+    if (panier === null) return;
+    if (panier[productId] === undefined) return;
+    else {
+      delete panier[productId];
     }
-}
+    localStorage.setItem("panier", JSON.stringify(panier));
+    // ); /* Supprime item du localStorage */
+    container.remove(); /* Supprime item du DOM */
+    location.reload(true); /* Actualise la page dynamiquement */
+  });
+};
 
-function CartNumbers(product){
+// soustrait et enlève un produit au panier
 
-    let productNumbers = localStorage.getItem('cartNumbers');
-    productNumbers = parseInit(productNumbers);
-
-    if( pruductNumbers ) {
-        localStorage.setItem('cartNumbers', productNumbers + 1);
-        document.getElementById('nombredeproduit').textContent = productNumbers + 1;
+const decrementItem = (iconMoins, container, productId) => {
+  iconMoins.addEventListener("click",  () => {
+    const panier = JSON.parse(localStorage.getItem("panier"));
+    if (panier === null) return;
+    if (panier[productId] === undefined) return;
+    if (panier[productId].quantity > 1) {
+      panier[productId].quantity--;
     } else {
-        localStorage.setItem('cartNumbers', 1);
-        document.getElementById('nombredeproduit').textContent = 1;
+      delete panier[productId];
     }
+    localStorage.setItem("panier", JSON.stringify(panier));
+    // ); /* Supprime item du localStorage */
+    container.remove(); /* Supprime item du DOM */
+    location.reload(true);
+  });
+};
 
-    setItems(product)
-}
+// additionne et rajoute un produit au panier
 
-function setItems(product){
-    let cartItems = locaStorage.getItem('productsInCart');
-    cartItems = JSON.parse(cartItems);
-
-    if(cartItems != null) {
-
-        if(cartItems[product.id] == undefined){
-            cartItems = {
-                ...cartItems,
-                [product.id]: product
-            }
-        }
-        cartItems[product.id].inCart += 1;
-    }else{
-        product.inCart = 1;
-        cartItems = {
-            [product.id]: product
-     }
-    }
-    
-    localStorage.setItems("productsInCart", JSON.stringify
-    (cartItems));
-}
-
-function totalCost(product){
-    let cartCost = localStorage.getItem('totalCost');
-
-    if(cartCost != null){
-        cartCost = parseInt(cartCost);
-        localStorage.setItem("totalCost", cartCost + product.price);
+const incrementItem = (iconPlus, container, productId) => {
+  iconPlus.addEventListener("click", () => {
+    const panier = JSON.parse(localStorage.getItem("panier"));
+    if (panier === null) return;
+    if (panier[productId] === undefined) return;
+    if (panier[productId].quantity >= 1) {
+      panier[productId].quantity++;
     } else {
-        localStorage.setItem("totalCost", product.price);
+      delete panier[productId];
     }
-
-}
-
-function dispalyCart() {
-    let cartItems = localStorage.getItem("productsInCart");
-    cartItems = JSON.parse(cartItems);
-    let productContainer = document.getElementById('panierutilisateur');
-
-    if( cartItems && productContainer) {
-        productContainer.innerHTML ='';
-        Object.values(cartItems).map(items => {
-           //Création de la structure principale du tableau  
-      let tableauPanier = document.createElement("div");
-      let blockImage = document.createElement("div");
-      let lienProduit = document.createElement("a");
-      let imageProduit = document.createElement("img");
-      let blockNom = document.createElement("div");
-      let produitNom = document.createElement("a");
-      let supressionProduit = document.createElement("a");
-      let blockPrix = document.createElement("div");
-      let produitPrix = document.createElement("p");
-      let blockQuantite = document.createElement("div");
-      let produitAjoute = document.createElement("a");
-      let iconePlus = document.createElement("i")
-      let produitQuantite = document.createElement("span");
-      let produitRetir = document.createElement("a");
-      let iconeMoins = document.createElement("i")
-      let blockSousTotal = document.createElement("div");
-      let sousTotal = document.createElement("p");
-
-    //On ajoute des attributs au balise pour la création du style via le css
-    tableauPanier.setAttribute("class", "panier-tableau flexbox bgc");
-    blockImage.setAttribute("class", "panier-tableau__image");
-    lienProduit.setAttribute("href", "fiche-produit.html?id=" + produit._id);
-    imageProduit.setAttribute("src", produit.imageUrl);
-    imageProduit.setAttribute("alt", "image du produit");
-    blockNom.setAttribute("class", "panier-tableau__descriptionduproduit");
-    produitNom.setAttribute("href", "fiche-produit.html?id=" + produit._id);
-    blockPrix.setAttribute("class", "panier-tableau__prix");
-    blockQuantite.setAttribute("class", "panier-tableau__quantite")
-    iconePlus.setAttribute("class", "fas fa-plus-circle")
-    iconeMoins.setAttribute("class", "fas fa-minus-circle")
-    blockSousTotal.setAttribute("class", "panier-tableau__soustotal")
-
-    //On rattache les différents éléments à leur parent
-    productContainer.appendChild(tableauPanier);
-    tableauPanier.appendChild(blockImage);
-    blockImage.appendChild(lienProduit);
-    lienProduit.appendChild(imageProduit);
-    tableauPanier.appendChild(blockNom);
-    blockNom.appendChild(produitNom);
-    blockNom.appendChild(supressionProduit)
-    tableauPanier.appendChild(blockPrix);
-    blockPrix.appendChild(produitPrix);
-    tableauPanier.appendChild(blockQuantite);
-    blockQuantite.appendChild(produitAjoute);
-    produitAjoute.appendChild(iconePlus);
-    blockQuantite.appendChild(produitQuantite);
-    blockQuantite.appendChild(produitRetir);
-    produitAjoute.appendChild(iconeMoins);
-    tableauPanier.appendChild(blockSousTotal);
-    blockSousTotal.appendChild(sousTotal);
-
-    //On insere les éléments provenant de l'API, nécéssaire à la lecture de la page
-    produitNom.textContent = produit.nom;
-    produitPrix.textContent = produit.price / 100 + " €";
-    sousTotal.textContent = "******";
-         })
-    }
-}
+    localStorage.setItem("panier", JSON.stringify(panier));
+    // ); /* Supprime item du localStorage */
+    container.remove(); /* Supprime item du DOM */
+    location.reload(true);
+  });
+};
 
 //Validation de notre formulaire de Commande
-
-const form = document.querySelector('form');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -195,65 +150,34 @@ const checkValidity = (input) => {
     input.addEventListener('input', (e) => {
         if (e.target.validity.valid) {
             e.target.parentElement.classList.remove('erreur__formulaire')
+            return (cartInformation.contact = {
+              // Si toutes les inputs saisies sont valides, renvoie l'objet contact à cartInformation
+              lastName: nomclient.value,
+              firstName: prenomclient.value,
+              email: emailclient.value,
+              address: adresseclient.value,
+              city: villeclient.value,
+        })}
         }
-    })
-}
+  );
 
 Array.from(inputs).forEach(checkValidity);
 Array.from(textareas).forEach(checkValidity);
 
-/*Envoi du formulaire
-**********************************************/
+// Envoie données à l'api
+post ("https://oc-p5-api.herokuapp.com/api/cameras/order").then((response)=>{
 
-  //Fonction requet post de l'API
-  post = (infoClient) => {
-    return new Promise((resolve)=>{
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-            if(this.readyState == XMLHttpRequest.DONE && this.status == 201) 
-            {
-        //Sauvegarde du retour de l'API dans la sessionStorage pour affichage dans order-confirm.html
-        sessionStorage.setItem("order", this.responseText);
-
-        //Chargement de la page de confirmation
-        document.forms["formulairedecommande"].action = './confirmation-de-commande.html';
-        document.forms["formulairedecommande"].submit();
-
-        resolve(JSON.parse(this.responseText));
-    }
-};
-request.open("POST", APIURL + "order");
-request.setRequestHeader("Content-Type", "application/json");
-request.send(infoClient);
-});
-};
-
-//Au click sur le bouton de validation du formulaire
-validForm = () =>{
-  //Ecoute de l'event click du formulaire
-  let boutonFormulaire = document.getElementById("envoiformulaire");
-  boutonFormulaire.addEventListener("click", function(){
-    //Lancement des verifications du panier et du form => si Ok envoi
-    if(checkPanier() == true && checkValidity() != null){
-        console.log("La commande et le formulaire peuvent être envoyés");
-    //Création de l'objet à envoyer
-    let infoCommande = {
-        contact,
-        products
-    };
-    console.log("Information récupérées : " + infoCommande);
-   //Conversion en JSON
-   let infoClient = JSON.stringify(infoCommande);
-   console.log("Information récupérées : " + infoClient);
-   //Envoi de l'objet via la function
-   envoiDonnees(infoClient);
-
-   //Une fois la commande faite retour à l'état initial des tableaux/objet/localStorage
-   contact = {};
-   products = [];
-   localStorage.clear();
-}else{
-   console.log("Il y a une erreur");
-};
-});
-};
+btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  let panier = JSON.parse(localStorage.getItem("panier"));
+  if (panier === null) {
+    console.log ("impossible d'envoyer le formulaire de commande")
+  }else {
+          postData(
+         "POST",
+         "https://oc-p5-api.herokuapp.com/api/cameras/order",
+          cartInformation
+    ); // Envoie données au serveur
+    window.location = `./confirmation.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
+  }
+  }));
