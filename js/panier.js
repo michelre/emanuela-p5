@@ -23,7 +23,7 @@ const cartInformation = {
 let totalPrice = 0;
 
 // Affiche le/les produit(s) du panier.
-const displayCart = () => {
+get (apiUrl+idProduit).then((response)=>{
   const cartItems = JSON.parse(localStorage.getItem("panier"));
   if (Object.keys(cartItems).length > 0) {
     for (let i = 0; i < Object.keys(cartItems).length; i++) {
@@ -52,7 +52,7 @@ const displayCart = () => {
     cart.textContent = "Votre panier est vide.";
     form.classList.add("invisible");
   }
-};
+});
 
 // Fourni l'affichage du/des produits du panier
 const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
@@ -89,7 +89,7 @@ const deleteCart = (removeElt, container, productId) => {
 
 // soustrait et enlève un produit au panier
 
-const decrementItem = (iconMoins, container, productId) => {
+const soustractionItem = (iconMoins, container, productId) => {
   iconMoins.addEventListener("click",  () => {
     const panier = JSON.parse(localStorage.getItem("panier"));
     if (panier === null) return;
@@ -108,7 +108,7 @@ const decrementItem = (iconMoins, container, productId) => {
 
 // additionne et rajoute un produit au panier
 
-const incrementItem = (iconPlus, container, productId) => {
+const additionItem = (iconPlus, container, productId) => {
   iconPlus.addEventListener("click", () => {
     const panier = JSON.parse(localStorage.getItem("panier"));
     if (panier === null) return;
@@ -179,5 +179,7 @@ btn.addEventListener("click", (e) => {
           cartInformation
     ); // Envoie données au serveur
     window.location = `./confirmation.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
-  }
-  }));
+  }})
+
+
+});
