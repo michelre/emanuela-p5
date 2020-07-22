@@ -8,13 +8,6 @@ const cart = document.querySelector("#panier"); // Récupère la section du pani
 const cartTotal = document.getElementById("panier-total"); //Récupère le h3 pour le prix total
 const form = document.querySelector("form"); // Récupère le formulaire
 
-//id des différents produits dans l'API
-
-let idProduit = "";
-
-//Collecter l'URL après le ?id= pour le récupérer uniquement sur l'API
-idProduit = location.search.substring(4);
-
 const cartInformation = {
     contact: {},
     products: [],
@@ -23,11 +16,11 @@ const cartInformation = {
 let totalPrice = 0;
 
 // Fourni l'affichage du/des produits du panier
-const renderCart = (productId, productName, productPrice, imgUrl, productQuantity) => {
+const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
     /* Affiche article(s) du panier */
     const article = document.createElement("article");
     article.innerHTML = `
-    <a href="fiche-produit.html?id=${productId}"><img src="${imgUrl}" width="50px"></a>
+    <img src="${imgUrl}" width="50px">
     <div class="produit-information>
         <p class="produit-nom">${productName}</p>
         <p class="produit-prix">${productPrice}</p>
@@ -40,7 +33,7 @@ const renderCart = (productId, productName, productPrice, imgUrl, productQuantit
     cart.appendChild(article)
 };
 /* Supprime élément du panier sur un clique*/
-let removeElt = getElementById('')
+let removeElt = getElementsByClassName(supprime);
 const deleteCart = (removeElt, container, productId) => {
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -57,7 +50,7 @@ const deleteCart = (removeElt, container, productId) => {
 };
 
 // soustrait et enlève un produit au panier
-
+let iconMoins = getElementsByClassName(fa-minus-circle);
 const soustractionItem = (iconMoins, container, productId) => {
     iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -77,6 +70,7 @@ const soustractionItem = (iconMoins, container, productId) => {
 
 // additionne et rajoute un produit au panier
 
+let iconPlus = getElementsByClassName(fa-plus-circle);
 const additionItem = (iconPlus, container, productId) => {
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -156,5 +150,5 @@ const checkValidity = (input) => {
 
 const panier = JSON.parse(localStorage.getItem('panier'))
 for(let product of Object.values(panier)){
-    renderCart(product.Id, product.name, product.price, product.imageUrl, product.quantity)
+    renderCart(product.name, product.price, product.imageUrl, product.quantity)
 }
