@@ -33,7 +33,7 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
     cart.appendChild(article)
 };
 /* Supprime élément du panier sur un clique*/
-let removeElt = getElementsByClassName(supprime);
+let removeElt = document.getElementsByClassName(supprime);
 const deleteCart = (removeElt, container, productId) => {
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -50,7 +50,7 @@ const deleteCart = (removeElt, container, productId) => {
 };
 
 // soustrait et enlève un produit au panier
-let iconMoins = getElementsByClassName(fa-minus-circle);
+let iconMoins = document.getElementsByClassName(fa-minus-circle);
 const soustractionItem = (iconMoins, container, productId) => {
     iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
@@ -70,7 +70,7 @@ const soustractionItem = (iconMoins, container, productId) => {
 
 // additionne et rajoute un produit au panier
 
-let iconPlus = getElementsByClassName(fa-plus-circle);
+let iconPlus = document.getElementsByClassName(fa-plus-circle);
 const additionItem = (iconPlus, container, productId) => {
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
