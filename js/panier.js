@@ -34,7 +34,6 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
     cart.appendChild(article)
 };
 /* Supprime élément du panier sur un clique*/
-const removeElt = document.getElementClassName("supprimer"); 
 const deleteCart = (removeElt, container, productId) => {
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
