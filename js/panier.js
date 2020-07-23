@@ -8,7 +8,6 @@ const cart = document.querySelector("#panier"); // Récupère la section du pani
 const cartTotal = document.getElementById("panier-total"); //Récupère le h3 pour le prix total
 const form = document.querySelector("form"); // Récupère le formulaire
 
-
 const cartInformation = {
     contact: {},
     products: [],
@@ -17,26 +16,28 @@ const cartInformation = {
 let totalPrice = 0;
 
 // Fourni l'affichage du/des produits du panier
-
 const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
     /* Affiche article(s) du panier */
     const article = document.createElement("article");
     article.innerHTML = `
-    <img src="${imgUrl}" width="50px">
+    <div class="produit-img">
+    <img src="${imgUrl}">
+    <p class="supprime ">supprimer</p></div>
     <div class="produit-information>
         <p class="produit-nom">${productName}</p>
-        <p class="produit-prix">${productPrice}</p>
+        <p class="produit-prix">${productPrice / 100}</p>
     </div>
-    <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>
-    <p class="supprime">supprimer</p>`;
-    cart.insertBefore(article, cartTotal); // Insère article avant cartTotal
-    totalPrice += productPrice * productQuantity; /* Implémente prix */
+    <p class="sous-total">Sous-total : ${totalPriceProduct}€</p>
+    <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>`;
+    cart.insertBefore(cartTotal, article); // Insère article avant cartTotal
+    totalPriceProduct = productPrice / 100 * productQuantity; 
+    totalPrice += productPrice / 100 * productQuantity; 
     cartTotal.textContent = `Total : ${totalPrice}€`; /* Affiche le prix total */
     cart.appendChild(article)
 };
 /* Supprime élément du panier sur un clique*/
 const deleteCart = (removeElt, container, productId) => {
-removeElt.getElementByClassName("supprime")
+    const removeElt = document.querySelectorAll("supprime");
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
         if (panier === null) return;
@@ -52,9 +53,10 @@ removeElt.getElementByClassName("supprime")
 };
 
 // soustrait et enlève un produit au panier
-    const soustractionItem = (iconMoins, container, productId) => {
-        iconMoins.getElementByClassName("fa-minus-circle")
-        iconMoins.addEventListener("click", () => {
+
+const soustractionItem = (iconMoins, container, productId) => {
+    const iconMoins = document.querySelectorAll("fa-minus-circle");
+    iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
         if (panier === null) return;
         if (panier[productId] === undefined) return;
@@ -71,8 +73,9 @@ removeElt.getElementByClassName("supprime")
 };
 
 // additionne et rajoute un produit au panier
+
 const additionItem = (iconPlus, container, productId) => {
-    iconPlus.getElementByClassName("fa-plus-circle")
+    const iconPlus = document.querySelectorAll("fa-plus-circle");
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
         if (panier === null) return;
