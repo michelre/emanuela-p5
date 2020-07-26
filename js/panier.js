@@ -15,92 +15,131 @@ const cartInformation = {
 /* Stock le prix total */
 let totalPrice = 0;
 
+const updateTotalPrice = () => {
+    const panier = JSON.parse(localStorage.getItem('panier'))
+    let totalPrice = 0;
+    for (let product of Object.values(panier)) {
+        totalPrice += product.price * product.quantity
+    }
+    cartTotal.textContent = `Total : ${totalPrice / 100}€`; /* Affiche le prix total */
+}
+
 // Fourni l'affichage du/des produits du panier
-const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
+const renderCart = (productId, productName, productPrice, imgUrl, productQuantity) => {
+    const totalPriceProduct = productPrice / 100 * productQuantity;
     /* Affiche article(s) du panier */
     const article = document.createElement("article");
     article.innerHTML = `
     <div class="produit-img">
-    <img src="${imgUrl}">
-    <p class="supprime ">supprimer</p></div>
+    <img src="${imgUrl}" width="100">
+    <button class="supprime ">supprimer</button></div>
     <div class="produit-information>
         <p class="produit-nom">${productName}</p>
         <p class="produit-prix">${productPrice / 100}</p>
     </div>
-    <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>
+    <div class="quantity">
+        <i class="fas fa-minus-circle"></i>
+        <span class="product-quantity">${productQuantity}</span>
+        <i class="fas fa-plus-circle"></i>
+    </div>
     <p class="sous-total">Sous-total : ${totalPriceProduct}€</p>`;
-    cart.insertBefore(cartTotal, article); // Insère article avant cartTotal
-    totalPriceProduct = productPrice / 100 * productQuantity; 
-    totalPrice += productPrice / 100 * productQuantity; 
-    cartTotal.textContent = `Total : ${totalPrice}€`; /* Affiche le prix total */
+    updateTotalPrice();
     cart.appendChild(article)
+
+    deleteCart(article, productId);
+    soustractionItem(article, productId);
+    additionItem(article, productId)
+
 };
 /* Supprime élément du panier sur un clique*/
-const deleteCart = (removeElt, container, productId) => {
-    const removeElt = document.querySelectorAll("supprime");
+const deleteCart = (article, productId) => {
+    const removeElt = article.querySelector(".supprime");
     removeElt.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
-        if (panier === null) return;
-        if (panier[productId] === undefined) return;
-        else {
-            delete panier[productId];
+        if (panier === null) {
+            return;
         }
+        if (panier[productId] === undefined) {
+            return;
+        }
+        delete panier[productId];
         localStorage.setItem("panier", JSON.stringify(panier));
-        // ); /* Supprime item du localStorage */
-        container.remove(); /* Supprime item du DOM */
-        location.reload(true); /* Actualise la page dynamiquement */
+        article.remove();
+        updateTotalPrice();
     });
 };
 
 // soustrait et enlève un produit au panier
 
-const soustractionItem = (iconMoins, container, productId) => {
-    const iconMoins = document.querySelectorAll("fa-minus-circle");
+const soustractionItem = (article, productId) => {
+    const iconMoins = article.querySelector(".fa-minus-circle");
     iconMoins.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
-        if (panier === null) return;
-        if (panier[productId] === undefined) return;
+        if (panier === null) {
+            return;
+        }
+        if (panier[productId] === undefined) {
+            return;
+        }
         if (panier[productId].quantity > 1) {
+            const quantity = article.querySelector('.product-quantity')
+            const sousTotal = article.querySelector('.sous-total')
             panier[productId].quantity--;
+            quantity.textContent = panier[productId].quantity
+            sousTotal.textContent = `Sous-total : ${(panier[productId].quantity * panier[productId].price) / 100}€`
+
         } else {
             delete panier[productId];
+            article.remove();
         }
         localStorage.setItem("panier", JSON.stringify(panier));
-        // ); /* Supprime item du localStorage */
-        container.remove(); /* Supprime item du DOM */
-        location.reload(true);
+        updateTotalPrice();
     });
 };
 
 // additionne et rajoute un produit au panier
 
-const additionItem = (iconPlus, container, productId) => {
-    const iconPlus = document.querySelectorAll("fa-plus-circle");
+const additionItem = (article, productId) => {
+    const iconPlus = article.querySelector(".fa-plus-circle");
     iconPlus.addEventListener("click", () => {
         const panier = JSON.parse(localStorage.getItem("panier"));
-        if (panier === null) return;
-        if (panier[productId] === undefined) return;
-        if (panier[productId].quantity >= 1) {
-            panier[productId].quantity++;
-        } else {
-            delete panier[productId];
+        if (panier === null) {
+            return;
         }
+        if (panier[productId] === undefined) {
+            return;
+        }
+        const quantity = article.querySelector('.product-quantity')
+        const sousTotal = article.querySelector('.sous-total')
+        panier[productId].quantity++;
+        quantity.textContent = panier[productId].quantity
+        sousTotal.textContent = `Sous-total : ${(panier[productId].quantity * panier[productId].price) / 100}€`
         localStorage.setItem("panier", JSON.stringify(panier));
-        // ); /* Supprime item du localStorage */
-        container.remove(); /* Supprime item du DOM */
-        location.reload(true);
+        updateTotalPrice();
     });
 };
 
 //Validation de notre formulaire de Commande
-
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log('Nom:', e.target.nomclient.value)
-    console.log('Prénom:', e.target.prenomclient.value)
-    console.log('Email:', e.target.emailclient.value)
-    console.log('Adresse:', e.target.adresseclient.value)
-    console.log('Ville:', e.target.villeclient.value)
+    const products = []
+    const panier = JSON.parse(localStorage.getItem('panier'))
+    for (let product of Object.values(panier)) {
+        products.push(product.id)
+    }
+    const data = {
+        contact: {
+            lastName: e.target.nomclient.value,
+            firstName: e.target.prenomclient.value,
+            email: e.target.emailclient.value,
+            address: e.target.adresseclient.value,
+            city: e.target.villeclient.value
+        },
+        products
+    }
+    post("https://oc-p5-api.herokuapp.com/api/cameras/order", data).then((response) => {
+        window.location = `./confirmation-de-commande.html?id=${response.orderId}&user=${response.contact.firstName}`; // Redirige vers la page de confirmation de commande
+    })
 });
 
 const inputs = document.querySelectorAll("input")
@@ -128,31 +167,12 @@ const checkValidity = (input) => {
             }
         }
     );
-
-    Array.from(inputs).forEach(checkValidity);
-    Array.from(textareas).forEach(checkValidity);
-
-// Envoie données à l'api
-    post("https://oc-p5-api.herokuapp.com/api/cameras/order").then((response) => {
-        const btn = document.getElementById("envoiformulaire");
-        btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            let panier = JSON.parse(localStorage.getItem("panier"));
-            if (panier === null) {
-                console.log("impossible d'envoyer le formulaire de commande")
-            } else {
-                postData(
-                    "POST",
-                    "https://oc-p5-api.herokuapp.com/api/cameras/order",
-                    cartInformation
-                ); // Envoie données au serveur
-                window.location = `./confirmation-de-commande.html?id=${response.orderId}&price=${totalPrice}&user=${firstName.value}`; // Redirige vers la page de confirmation de commande
-            }
-        })
-    })
 }
 
+Array.from(inputs).forEach(checkValidity);
+Array.from(textareas).forEach(checkValidity);
+
 const panier = JSON.parse(localStorage.getItem('panier'))
-for(let product of Object.values(panier)){
-    renderCart(product.name, product.price, product.imageUrl, product.quantity)
+for (let product of Object.values(panier)) {
+    renderCart(product.id, product.name, product.price, product.imageUrl, product.quantity)
 }
