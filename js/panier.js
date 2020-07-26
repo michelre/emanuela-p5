@@ -27,8 +27,8 @@ const renderCart = (productName, productPrice, imgUrl, productQuantity) => {
         <p class="produit-nom">${productName}</p>
         <p class="produit-prix">${productPrice / 100}</p>
     </div>
-    <p class="sous-total">Sous-total : ${totalPriceProduct}€</p>
-    <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>`;
+    <p class="quantity"><i class="fas fa-minus-circle">${productQuantity}</i><i class="fas fa-plus-circle"></i></p>
+    <p class="sous-total">Sous-total : ${totalPriceProduct}€</p>`;
     cart.insertBefore(cartTotal, article); // Insère article avant cartTotal
     totalPriceProduct = productPrice / 100 * productQuantity; 
     totalPrice += productPrice / 100 * productQuantity; 
